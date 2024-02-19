@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tr_store/src/core/widgets/category_pill.dart';
@@ -38,11 +39,16 @@ class CartItem extends ConsumerWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Image.network(
-              product.image,
-              fit: BoxFit.contain,
+            child: CachedNetworkImage(
+              imageUrl: product.image,
+              cacheKey: product.image,
               height: 100,
               width: 100,
+              fit: BoxFit.contain,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           const SizedBox(width: 16),

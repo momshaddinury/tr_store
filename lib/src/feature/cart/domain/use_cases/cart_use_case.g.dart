@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart_provider.dart';
+part of 'cart_use_case.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cartHash() => r'a3dc64a42252cf4151e2dda8b5e135339473930e';
+String _$cartUseCaseHash() => r'a4b6923f57533eabb78fc2e29ca305482ce825ba';
 
-/// See also [Cart].
-@ProviderFor(Cart)
-final cartProvider = NotifierProvider<Cart, List<CartEntity>>.internal(
-  Cart.new,
-  name: r'cartProvider',
+/// See also [cartUseCase].
+@ProviderFor(cartUseCase)
+final cartUseCaseProvider = AutoDisposeProvider<CartUseCase>.internal(
+  cartUseCase,
+  name: r'cartUseCaseProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$cartHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$cartUseCaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Cart = Notifier<List<CartEntity>>;
+typedef CartUseCaseRef = AutoDisposeProviderRef<CartUseCase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

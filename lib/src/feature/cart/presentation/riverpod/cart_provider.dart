@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tr_store/src/feature/cart/data/models/cart_data.dart';
 import 'package:tr_store/src/feature/cart/domain/entities/cart_entity.dart';
+import 'package:tr_store/src/feature/cart/domain/use_cases/cart_use_case.dart';
 import 'package:tr_store/src/feature/shared/products/domain/entities/product_entity.dart';
 
 part 'cart_provider.g.dart';
@@ -34,13 +36,21 @@ final totalCartPriceProvider = Provider<double>(
 @Riverpod(keepAlive: true)
 class Cart extends _$Cart {
   List<CartEntity> cart = [];
+  late CartUseCase useCase;
 
   @override
   List<CartEntity> build() {
+    useCase = ref.read(cartUseCaseProvider);
+    getCart();
     return cart;
   }
 
-  void addItem(ProductEntity product) {
+  Future<void> getCart() async {
+    cart = await useCase.getCart();
+    state = List.from(cart);
+  }
+
+  Future<void> addItem(ProductEntity product) async {
     final index = cart.indexWhere(
       (element) {
         return element.product.id == product.id;
@@ -48,26 +58,29 @@ class Cart extends _$Cart {
     );
     if (index != -1) {
       cart[index] = cart[index].copyWith(quantity: cart[index].quantity + 1);
+      await useCase.updateCart(cart[index]);
     } else {
-      cart.add(CartEntity(product: product, quantity: 1));
+      await useCase.addToCart(CartEntity(product: product, quantity: 1));
     }
-    state = List.from(cart);
+
+    getCart();
   }
 
-  void updateItem(ProductEntity product, int quantity) {
+  Future<void> updateItem(ProductEntity product, int quantity) async {
     final index = cart.indexWhere(
       (element) {
         return element.product.id == product.id;
       },
     );
     if (index != -1) {
-      cart[index] = cart[index].copyWith(quantity: quantity);
+      cart[index] = CartData(quantity: quantity, product: product);
+      await useCase.updateCart(cart[index]);
     }
-    state = List.from(cart);
+    getCart();
   }
 
-  void clearCart() {
-    cart = [];
-    state = cart;
+  Future<void> clearCart() async {
+    await useCase.deleteCart();
+    getCart();
   }
 }

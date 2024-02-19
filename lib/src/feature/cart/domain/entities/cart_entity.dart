@@ -18,4 +18,11 @@ class CartEntity {
       quantity: quantity ?? this.quantity,
     );
   }
+
+  Map<String, dynamic> toDBJson() {
+    return {
+      "quantity": quantity,
+      "product_id": product.id,
+    };
+  }
 }

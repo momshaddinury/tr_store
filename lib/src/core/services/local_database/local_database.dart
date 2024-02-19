@@ -93,12 +93,18 @@ class LocalDatabase {
     await _db!.update(
       table,
       data,
+      where: 'product_id = ?',
+      whereArgs: [data['product_id']],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<void> delete(String table, int id) async {
-    await _db!.delete(table, where: 'id = ?', whereArgs: [id]);
+  Future<void> delete(String table, int? id) async {
+    await _db!.delete(table);
+  }
+
+  Future<List<Map<String, dynamic>>> rawQuery(String sql) async {
+    return await _db!.rawQuery(sql);
   }
 
   Future<void> close() async {
