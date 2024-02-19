@@ -1,12 +1,10 @@
 import 'package:flutter_network/flutter_network.dart';
 import 'package:tr_store/src/core/services/network/api.dart';
 
-import 'category_data_source.dart';
+import 'category_remote_data_source.dart';
 
-class CategoryDataSourceImpl implements CategoryDataSource {
-  CategoryDataSourceImpl({
-    required this.client,
-  });
+class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
+  CategoryRemoteDataSourceImpl({required this.client});
 
   final FlutterNetwork client;
 

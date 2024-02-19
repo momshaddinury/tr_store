@@ -20,7 +20,8 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<ErrorModel, List<ProductData>>> productList(
-      bool forceRefresh) async {
+    bool forceRefresh,
+  ) async {
     try {
       List<ProductData> products = [];
       List data;
