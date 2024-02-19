@@ -17,4 +17,6 @@ abstract class ProductLocalDataSource {
   Future<void> updateProductList(dynamic data);
 
   Future<List<Map<String, dynamic>>> fetchProductList();
+
+  Future<Map<String, dynamic>> fetchProduct(int id);
 }

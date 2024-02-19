@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tr_store/src/core/widgets/cart_icon.dart';
@@ -75,11 +76,16 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(16),
-                          child: Image.network(
-                            product!.image,
+                          child: CachedNetworkImage(
+                            imageUrl: product!.image,
+                            cacheKey: product.image,
                             fit: BoxFit.contain,
                             width: double.infinity,
                             height: 250,
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ),
                         ),
                       ),

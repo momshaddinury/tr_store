@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_network/flutter_network.dart';
 import 'package:tr_store/src/core/services/network/error_model.dart';
-import 'package:tr_store/src/core/services/network/request_handler.dart';
 import 'package:tr_store/src/feature/shared/products/data/data_sources/local/product_local_data_source.dart';
 import 'package:tr_store/src/feature/shared/products/data/data_sources/remote/product_remote_data_source.dart';
 import 'package:tr_store/src/feature/shared/products/data/models/product_data.dart';
@@ -63,8 +62,26 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<ErrorModel, ProductData>> product(int id) async {
-    return await remote
-        .fetchProduct(id)
-        .guard((data) => ProductData.fromJson(data));
+    try {
+      dynamic data = await local.fetchProduct(id);
+
+      if (data.isEmpty) {
+        final response = await remote.fetchProduct(id);
+        data = response.data;
+      }
+
+      ProductData product = ProductData.fromJson(data);
+
+      return Right(product);
+    } on Failure catch (e, stacktrace) {
+      log(
+        runtimeType.toString(),
+        error: {},
+        stackTrace: stacktrace,
+      );
+      ErrorModel errorModel = ErrorModel.fromJson(e.error);
+
+      return Left(errorModel);
+    }
   }
 }

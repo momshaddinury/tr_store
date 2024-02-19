@@ -33,4 +33,9 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
     }
     return;
   }
+
+  @override
+  Future<Map<String, dynamic>> fetchProduct(int id) async {
+    return (await database.read(LocalDatabase.productsTable, id: id)).first;
+  }
 }

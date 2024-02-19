@@ -73,7 +73,10 @@ class LocalDatabase {
     ''');
   }
 
-  Future<List<Map<String, Object?>>> read(String table) async {
+  Future<List<Map<String, Object?>>> read(String table, {dynamic id}) async {
+    if (id != null) {
+      return await _db!.query(table, where: 'id = ?', whereArgs: [id]);
+    }
     return await _db!.query(table);
   }
 
