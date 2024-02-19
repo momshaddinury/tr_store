@@ -11,7 +11,7 @@ final GoRouter _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: Routes.productList.name,
+      name: Routes.home,
       pageBuilder: (context, state) {
         return MaterialPage(
           key: state.pageKey,
@@ -20,8 +20,8 @@ final GoRouter _router = GoRouter(
       },
       routes: [
         GoRoute(
-          path: Routes.productList.name,
-          name: Routes.productDetails.name,
+          path: Routes.productDetails,
+          name: Routes.productDetails,
           pageBuilder: (context, state) {
             return MaterialPage(
               key: state.pageKey,

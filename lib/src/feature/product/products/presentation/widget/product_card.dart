@@ -27,7 +27,7 @@ class _ProductCard extends ConsumerWidget {
     int id,
   ) {
     context.goNamed(
-      Routes.productDetails.name,
+      Routes.productDetails,
       queryParameters: <String, String>{
         'id': id.toString(),
       },
