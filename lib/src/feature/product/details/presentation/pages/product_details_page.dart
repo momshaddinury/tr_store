@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tr_store/src/core/widgets/cart_icon.dart';
+import 'package:tr_store/src/core/widgets/category_pill.dart';
+import 'package:tr_store/src/feature/cart/presentation/riverpod/cart_provider.dart';
 import 'package:tr_store/src/feature/product/details/presentation/riverpod/product_details_notifier.dart';
+import 'package:tr_store/src/feature/product/details/presentation/widgets/add_to_cart_button.dart';
+import 'package:tr_store/src/feature/product/details/presentation/widgets/price.dart';
 import 'package:tr_store/src/feature/product/details/presentation/widgets/product_details_loading_shimmer.dart';
-import 'package:tr_store/src/feature/shared/products/domain/entities/product_entity.dart';
 
-part '../widgets/product_details_builder.dart';
-
-class ProductDetailsPage extends ConsumerWidget {
+class ProductDetailsPage extends ConsumerStatefulWidget {
   const ProductDetailsPage({
     Key? key,
     required this.productId,
@@ -15,13 +17,23 @@ class ProductDetailsPage extends ConsumerWidget {
   final int productId;
 
   @override
-  Widget build(BuildContext context, ref) {
-    final state = ref.watch(productDetailsProvider(productId));
+  ConsumerState<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
+  int quantity = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(productDetailsProvider(widget.productId));
+    final checkIfProductIsInCart =
+        ref.watch(checkIfProductIsInCartProvider(widget.productId));
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6F9),
       appBar: AppBar(
         title: const Text('Product Details'),
+        actions: const [CartIcon()],
       ),
       bottomNavigationBar: state.when(
         data: (data) => Padding(
@@ -30,51 +42,13 @@ class ProductDetailsPage extends ConsumerWidget {
           ).copyWith(bottom: 30),
           child: Row(
             children: [
-              // Price and Add to card button
-              Expanded(
-                flex: 0,
-                child: SizedBox(
-                  height: 50,
-                  child: TextButton(
-                    onPressed: null,
-                    style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xFFEBEBEB),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Text(
-                      '\$${data?.price}',
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              Price(price: data!.price),
               const Spacer(),
-              Expanded(
-                flex: 2,
-                child: SizedBox(
-                  height: 50,
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      'Add to Cart',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
+              AddToCartButton(
+                disabled: checkIfProductIsInCart,
+                onPressed: () {
+                  ref.read(cartProvider.notifier).addItem(data);
+                },
               ),
             ],
           ),
@@ -86,7 +60,63 @@ class ProductDetailsPage extends ConsumerWidget {
         padding: const EdgeInsets.all(16),
         child: state.when(
           data: (product) {
-            return _ProductDetailsBuilder(product: product!);
+            return RefreshIndicator(
+              onRefresh: () =>
+                  ref.refresh(productDetailsProvider(product.id).future),
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [
+                  Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Image.network(
+                            product!.image,
+                            fit: BoxFit.contain,
+                            width: double.infinity,
+                            height: 250,
+                          ),
+                        ),
+                      ),
+                      // QuantityButton(onChanged: (value) => quantity = value),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.title,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      const SizedBox(height: 8),
+                      CategoryPill(category: product.category),
+                      const SizedBox(height: 12),
+                      Text(
+                        "Description",
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        product.description,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
           },
           loading: () => const ProductDetailsLoadingShimmer(),
           error: (error, stackTrace) {

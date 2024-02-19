@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tr_store/src/core/router/routers.dart';
 import 'package:tr_store/src/core/state/base_state.dart';
+import 'package:tr_store/src/core/widgets/cart_icon.dart';
 import 'package:tr_store/src/feature/product/products/presentation/riverpod/providers.dart';
 import 'package:tr_store/src/feature/product/products/presentation/widget/products_loading_shimmer.dart';
 import 'package:tr_store/src/feature/shared/category/presentation/provider/categories_provider.dart';
@@ -39,16 +40,7 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Products'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              //TODO: Navigate to the cart screen
-            },
-            icon: const Icon(
-              Icons.shopping_cart,
-            ),
-          )
-        ],
+        actions: const [CartIcon()],
       ),
       body: Column(
         children: [
