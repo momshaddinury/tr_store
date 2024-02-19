@@ -5,7 +5,7 @@ This project is a Flutter application that uses Riverpod for state management an
 
 ## Requirements
 To run this project, you need to have the following software installed on your machine:
-- Flutter (3.16.5 - Stable)
+- Flutter (3.19.0- Stable)
 - Dart ('>=3.2.3 <4.0.0')
 
 ## Installation
@@ -28,10 +28,12 @@ The project structure is as follows:
     ├── main
     └── src/
         ├── core/
-        │   ├── network
-        │   ├── router
-        │   └── state
+        │   ├── services
+        │   ├── state
+        │   └── widgets
         └── feature/
+            ├── cart/
+            │   └── ...
             ├── shared/
             │   ├── category/
             │   │   ├── data/
@@ -67,11 +69,12 @@ The project structure is as follows:
                     └── presentation/
                         └── ...
 ```
-## Dependencies
+## Dependencies (major)
 - flutter_riverpod
 - flutter_network
 - dartz
 - go_router
+- sqflite
 
 ## Feature
 - Fetching all products and categories
@@ -79,9 +82,14 @@ The project structure is as follows:
 - Fetching product details and caching the response
 - Improving performance of ListView by using *overrideWithValue* and passing const widget
 - Navigation using GoRouter
+- Caching all the responses
+- Handling local cart 
 
 ## Dependency Injection, State Management & Caching
-The project uses Riverpod for both state management and dependency injection. It allows for easy management of dependencies and makes it easier to test the code. By combining ```FutureProvider.autoDispose``` with ```keepAlive``` caching is also acheieved.
+The project uses Riverpod for both state management and dependency injection. It allows for easy management of dependencies and makes it easier to test the code. By combining ```FutureProvider.autoDispose``` with ```keepAlive``` state level caching is also acheieved.
+
+## Local Database
+For local database this project uses sqflite as a local data source
 
 ## Network Communication
 The project uses Flutter Network for network communication, which is a custom wrapper plugin with powerful features like caching, redirection, token callback and exception handling.
