@@ -34,11 +34,16 @@ class _ProductCard extends ConsumerWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: Image.network(
-                data.image,
+              child: CachedNetworkImage(
+                imageUrl: data.image,
+                cacheKey: data.image,
                 fit: BoxFit.contain,
                 height: 100,
                 width: 100,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
             const SizedBox(width: 16),
