@@ -17,15 +17,16 @@ class Price extends StatelessWidget {
         child: TextButton(
           onPressed: null,
           style: TextButton.styleFrom(
-            backgroundColor: const Color(0xFFEBEBEB),
+            backgroundColor:
+                Theme.of(context).colorScheme.primary.withOpacity(0.1),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
           child: Text(
             '\$$price',
-            style: const TextStyle(
-              color: Colors.black,
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
               fontSize: 18,
             ),
           ),

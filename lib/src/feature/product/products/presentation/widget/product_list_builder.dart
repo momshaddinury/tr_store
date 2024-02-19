@@ -9,7 +9,7 @@ class _ProductListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
       itemCount: products.length,
       itemBuilder: (context, index) {
         /// This might feel redundant to use a provider to pass
@@ -26,9 +26,6 @@ class _ProductListBuilder extends StatelessWidget {
           ],
           child: const _ProductCard(),
         );
-      },
-      separatorBuilder: (context, index) {
-        return const Divider();
       },
     );
   }

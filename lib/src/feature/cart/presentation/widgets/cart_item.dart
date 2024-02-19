@@ -56,7 +56,7 @@ class CartItem extends ConsumerWidget {
                 ),
                 const SizedBox(height: 8),
                 CategoryPill(category: product.category),
-                const SizedBox(height: 8),
+                const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

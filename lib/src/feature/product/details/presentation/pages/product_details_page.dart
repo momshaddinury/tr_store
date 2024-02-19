@@ -30,7 +30,6 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
         ref.watch(checkIfProductIsInCartProvider(widget.productId));
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6F9),
       appBar: AppBar(
         title: const Text('Product Details'),
         actions: const [CartIcon()],

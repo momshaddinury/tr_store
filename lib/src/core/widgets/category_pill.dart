@@ -16,12 +16,14 @@ class CategoryPill extends StatelessWidget {
         vertical: 8,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).highlightColor,
+        color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
         category.toUpperCase(),
-        style: Theme.of(context).textTheme.labelMedium,
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+            ),
       ),
     );
   }

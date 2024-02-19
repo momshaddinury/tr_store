@@ -7,18 +7,80 @@ class _ProductCard extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     ProductEntity data = ref.read(productDataProvider);
 
-    return ListTile(
+    final checkIfProductIsInCart =
+        ref.watch(checkIfProductIsInCartProvider(data.id));
+
+    return GestureDetector(
       onTap: () {
         _navigateToProductDetailsPage(context, data.id);
       },
-      leading: Image.network(
-        data.image,
-        fit: BoxFit.contain,
-        height: 100,
-        width: 100,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.grey.withOpacity(0.1),
+            ),
+          ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Image.network(
+                data.image,
+                fit: BoxFit.contain,
+                height: 100,
+                width: 100,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  CategoryPill(category: data.category),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '\$${data.price}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          if (!checkIfProductIsInCart) {
+                            ref.read(cartProvider.notifier).addItem(data);
+                          }
+                        },
+                        icon: Icon(
+                          Icons.add_shopping_cart,
+                          color: checkIfProductIsInCart
+                              ? Theme.of(context).disabledColor
+                              : Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-      title: Text(data.title),
-      subtitle: Text("\$${data.price}"),
     );
   }
 

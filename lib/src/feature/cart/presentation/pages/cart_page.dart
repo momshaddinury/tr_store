@@ -11,9 +11,7 @@ class CartPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cart = ref.watch(cartProvider);
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6F9),
       appBar: AppBar(
-        backgroundColor: Colors.white,
         title: const Text('Cart'),
       ),
       bottomNavigationBar: Container(
@@ -24,10 +22,14 @@ class CartPage extends ConsumerWidget {
           height: 50,
           child: TextButton(
             onPressed: () {
-              ref.read(cartProvider.notifier).clearCart();
+              if (cart.isNotEmpty) {
+                ref.read(cartProvider.notifier).clearCart();
+              }
             },
             style: TextButton.styleFrom(
-              backgroundColor: Colors.black,
+              backgroundColor: cart.isNotEmpty
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).disabledColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

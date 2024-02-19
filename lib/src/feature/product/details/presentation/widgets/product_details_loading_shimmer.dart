@@ -18,7 +18,7 @@ class ProductDetailsLoadingShimmer extends StatelessWidget {
             width: double.infinity,
             color: Colors.grey[200],
           ),
-          const Divider(),
+          const SizedBox(height: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

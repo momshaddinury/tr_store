@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:tr_store/src/core/router/routers.dart';
 import 'package:tr_store/src/core/state/base_state.dart';
 import 'package:tr_store/src/core/widgets/cart_icon.dart';
+import 'package:tr_store/src/core/widgets/category_pill.dart';
+import 'package:tr_store/src/feature/cart/presentation/riverpod/cart_provider.dart';
 import 'package:tr_store/src/feature/product/products/presentation/riverpod/providers.dart';
 import 'package:tr_store/src/feature/product/products/presentation/widget/products_loading_shimmer.dart';
 import 'package:tr_store/src/feature/shared/category/presentation/provider/categories_provider.dart';

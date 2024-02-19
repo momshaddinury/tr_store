@@ -30,7 +30,7 @@ class _QuantityButtonState extends State<QuantityButton> {
     return Container(
       margin: const EdgeInsets.only(right: 10, bottom: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFFEEEEEE),
+        color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
         borderRadius: BorderRadius.circular(10),
       ),
       child: widget.vertical
@@ -63,14 +63,21 @@ class _QuantityButtonState extends State<QuantityButton> {
       },
       padding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      icon: const Icon(Icons.remove),
+      icon: Icon(
+        Icons.remove,
+        color: quantity > 1
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).disabledColor,
+      ),
     );
   }
 
   Text _quantity(BuildContext context) {
     return Text(
       quantity.toString(),
-      style: Theme.of(context).textTheme.titleMedium,
+      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            color: Theme.of(context).primaryColor,
+          ),
     );
   }
 
@@ -84,7 +91,10 @@ class _QuantityButtonState extends State<QuantityButton> {
       },
       padding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      icon: const Icon(Icons.add),
+      icon: Icon(
+        Icons.add,
+        color: Theme.of(context).colorScheme.primary,
+      ),
     );
   }
 }

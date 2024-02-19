@@ -17,7 +17,6 @@ class AddToCartButton extends StatefulWidget {
 class _AddToCartButtonState extends State<AddToCartButton> {
   @override
   Widget build(BuildContext context) {
-    print(widget.disabled);
     return Expanded(
       flex: 2,
       child: SizedBox(
@@ -27,7 +26,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
           style: TextButton.styleFrom(
             backgroundColor: widget.disabled
                 ? Theme.of(context).disabledColor
-                : Colors.black,
+                : Theme.of(context).colorScheme.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),

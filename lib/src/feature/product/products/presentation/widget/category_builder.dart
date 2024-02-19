@@ -14,11 +14,11 @@ class _CategoryBuilder extends ConsumerWidget {
         vertical: 16,
       ).copyWith(left: 16),
       height: 50,
-      child: ListView.separated(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) {
-          return InkWell(
+          return GestureDetector(
             onTap: () {
               if (ref.watch(selectedCategoryProvider) == categories[index]) {
                 ref.read(selectedCategoryProvider.notifier).state = "";
@@ -28,12 +28,13 @@ class _CategoryBuilder extends ConsumerWidget {
                   categories[index];
             },
             child: Container(
+              margin: const EdgeInsets.only(right: 10),
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 5,
               ),
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Colors.white,
                 border: ref.watch(selectedCategoryProvider) == categories[index]
                     ? Border.all(color: Theme.of(context).primaryColor)
                     : null,
@@ -42,13 +43,17 @@ class _CategoryBuilder extends ConsumerWidget {
               child: Center(
                 child: Text(
                   categories[index].toUpperCase(),
+                  style: TextStyle(
+                    color:
+                        ref.watch(selectedCategoryProvider) == categories[index]
+                            ? Theme.of(context).primaryColor
+                            : Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
           );
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(width: 8);
         },
       ),
     );
