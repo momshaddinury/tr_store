@@ -18,4 +18,22 @@ class ProductData extends ProductEntity {
         category: json["category"],
         image: json["image"],
       );
+
+  factory ProductData.fromDatabase(Map<String, dynamic> map) => ProductData(
+        id: map["id"],
+        title: map["title"],
+        price: map["price"]?.toDouble(),
+        description: map["description"],
+        category: map["category"].toString(),
+        image: map["image"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "price": price,
+        "description": description,
+        "category": category,
+        "image": image,
+      };
 }

@@ -1,10 +1,10 @@
 import 'package:flutter_network/flutter_network.dart';
 import 'package:tr_store/src/core/services/network/api.dart';
 
-import 'product_data_source.dart';
+import 'product_remote_data_source.dart';
 
-class ProductDataSourceImpl implements ProductDataSource {
-  ProductDataSourceImpl({
+class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
+  ProductRemoteDataSourceImpl({
     required this.client,
   });
 

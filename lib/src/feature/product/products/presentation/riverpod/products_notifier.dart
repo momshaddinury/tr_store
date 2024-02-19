@@ -21,7 +21,8 @@ class ProductsNotifier extends StateNotifier<BaseState> {
 
   List<ProductEntity> _products = [];
 
-  Future<void> productList({bool hasFilter = false}) async {
+  Future<void> productList(
+      {bool hasFilter = false, bool forceRefresh = false}) async {
     if (hasFilter) {
       if (state is SuccessState) {
         String category = ref.read(selectedCategoryProvider);
@@ -45,7 +46,7 @@ class ProductsNotifier extends StateNotifier<BaseState> {
 
     state = const LoadingState();
     try {
-      final result = await useCase.productList();
+      final result = await useCase.productList(forceRefresh);
       result.fold(
         (l) {
           log(

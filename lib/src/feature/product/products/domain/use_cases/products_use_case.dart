@@ -17,7 +17,8 @@ class ProductsUseCase {
 
   final ProductRepository _repository;
 
-  Future<Either<ErrorModel, List<ProductEntity>>> productList() async {
-    return await _repository.productList();
+  Future<Either<ErrorModel, List<ProductEntity>>> productList(
+      bool forceRefresh) async {
+    return await _repository.productList(forceRefresh);
   }
 }

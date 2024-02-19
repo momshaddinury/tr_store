@@ -72,7 +72,7 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
                           ref.invalidate(selectedCategoryProvider);
                           await ref
                               .read(productsProvider.notifier)
-                              .productList();
+                              .productList(forceRefresh: true);
                         },
                         child: _ProductListBuilder(products: state.data!),
                       ),

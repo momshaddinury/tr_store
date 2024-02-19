@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product_data_source.dart';
+part of 'local_database_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$productDataSourceHash() => r'30442befd327c69ada3f4684a5452e8a618f81f1';
+String _$localDatabaseHash() => r'ce8641cbb2e8b87bf5ac477d2a22c4864ae57a6f';
 
-/// See also [productDataSource].
-@ProviderFor(productDataSource)
-final productDataSourceProvider =
-    AutoDisposeProvider<ProductDataSourceImpl>.internal(
-  productDataSource,
-  name: r'productDataSourceProvider',
+/// See also [localDatabase].
+@ProviderFor(localDatabase)
+final localDatabaseProvider = Provider<LocalDatabase>.internal(
+  localDatabase,
+  name: r'localDatabaseProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$productDataSourceHash,
+      : _$localDatabaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef ProductDataSourceRef = AutoDisposeProviderRef<ProductDataSourceImpl>;
+typedef LocalDatabaseRef = ProviderRef<LocalDatabase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
