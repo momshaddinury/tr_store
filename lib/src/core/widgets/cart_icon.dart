@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tr_store/src/core/router/routers.dart';
+import 'package:tr_store/src/core/services/navigation/routers.dart';
 import 'package:tr_store/src/feature/cart/presentation/riverpod/cart_provider.dart';
 
 class CartIcon extends ConsumerWidget {

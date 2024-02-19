@@ -1,6 +1,6 @@
 import 'package:flutter_network/flutter_network.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tr_store/src/core/network/network.dart';
+import 'package:tr_store/src/core/services/network/network.dart';
 
 import 'product_data_source_imp.dart';
 

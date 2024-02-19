@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tr_store/src/core/network/error_model.dart';
+import 'package:tr_store/src/core/services/network/error_model.dart';
 import 'package:tr_store/src/feature/shared/products/domain/entities/product_entity.dart';
 import 'package:tr_store/src/feature/shared/products/domain/repositories/product_repository.dart';
 

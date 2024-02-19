@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tr_store/src/core/router/routers.dart';
+import 'package:tr_store/src/core/services/navigation/routers.dart';
 import 'package:tr_store/src/core/state/base_state.dart';
 import 'package:tr_store/src/core/widgets/cart_icon.dart';
 import 'package:tr_store/src/core/widgets/category_pill.dart';

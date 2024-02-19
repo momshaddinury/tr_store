@@ -1,6 +1,6 @@
 import 'package:flutter_network/flutter_network.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tr_store/src/core/network/network.dart';
+import 'package:tr_store/src/core/services/network/network.dart';
 
 import 'category_data_source_imp.dart';
 
